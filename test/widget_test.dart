@@ -1,30 +1,40 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'package:budget_app_frontend/main.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:budget_app_frontend/pages/dashboard_page.dart';
+import 'package:budget_app_frontend/providers/transaction_provider.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  testWidgets('Transaction shows up in Dashboard', (WidgetTester tester) async {
+    // Wrap in ProviderScope so Riverpod works
+    await tester.pumpWidget(
+      const ProviderScope(child: MaterialApp(home: DashboardPage())),
+    );
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    // At first, no transactions should exist
+    expect(find.text("Transactions:"), findsOneWidget);
+    expect(find.byType(ListTile), findsNothing);
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
+    // Add a transaction via provider
+    final container = ProviderContainer();
+    container.read(transactionProvider.notifier).addTransaction(
+      "Test Item", // title
+      50,          // amount
+      "Test Category", // category (example value)
+      DateTime.now(), // date (example value)
+    );
+
+    // Rebuild widget with updated provider state
+    await tester.pumpWidget(
+      UncontrolledProviderScope(
+        container: container,
+        child: const MaterialApp(home: DashboardPage()),
+      ),
+    );
     await tester.pump();
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    // Verify transaction appears in the list
+    expect(find.text("Test Item"), findsOneWidget);
+    expect(find.text("\$50.0"), findsOneWidget);
   });
 }

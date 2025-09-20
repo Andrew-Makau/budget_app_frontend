@@ -83,7 +83,67 @@ C:\src\flutter\bin
 flutter doctor
 ```
 
+## 🟢 1. Create a New Flutter Project
+
+In your terminal (PowerShell, Command Prompt, or Git Bash), run:
+
+```bash
+flutter create my_new_app
+```
+
+* Replace `my_new_app` with your project name (lowercase, no spaces).
+* Flutter will generate the folder structure with `lib/`, `pubspec.yaml`, etc.
+
 ---
+
+## 🟢 2. Open the Project in VS Code (or Android Studio)
+
+### If you use **VS Code**:
+
+1. Open VS Code.
+2. Go to **File → Open Folder…**
+3. Select the `my_new_app` folder you just created.
+4. You’ll see the `lib/main.dart` file — that’s the entry point of your Flutter app.
+
+👉 Pro tip: If you are already in the terminal inside your project folder, you can run:
+
+```bash
+code .
+```
+
+(Only works if you installed the “Code” command for VS Code.)
+
+---
+
+### If you use **Android Studio**:
+
+1. Open Android Studio.
+2. Click **Open an Existing Project**.
+3. Navigate to `my_new_app` folder → select it.
+4. Android Studio will load it as a Flutter project.
+
+---
+
+## 🟢 3. Run the New Project
+
+From the terminal inside the project folder, run:
+
+```bash
+flutter run
+```
+
+Or press ▶ **Run** in VS Code/Android Studio.
+
+* If you have an **emulator** (Android or iOS) or a real device connected, the app will launch.
+
+```
+
+
+---
+
+✅ That’s it! You’ve created, opened, and run a new Flutter project.
+
+
 
 ## 📌 4. Common Errors & Fixes
 

@@ -352,4 +352,5 @@ git config --global core.autocrlf true
 Commit it so your team/devices always use the same rules.
 
 ---
+flutter run --device-timeout=120 -d emulator-5554
 
